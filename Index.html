@@ -1,1 +1,218 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Hamzah & Anissa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #fcfbfa; color: #333; text-align: center; overflow-x: hidden; }
+        
+        /* Musik Kontrol Bulat di Pojok */
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 999; background: #bc9642; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        /* Hero Cover */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200') no-repeat center center/cover; color: #fff; padding: 20px; }
+        .hero h3 { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 300; margin-bottom: 10px; }
+        .hero h1 { font-family: 'Sacramento', cursive; font-size: 4.5rem; margin: 20px 0; font-weight: 400; }
+        .btn { padding: 12px 28px; background-color: #d4af37; color: white; border: none; border-radius: 25px; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn:hover { background-color: #b8962e; transform: translateY(-2px); }
+
+        /* Countdown Area */
+        .countdown-container { display: flex; gap: 15px; margin-top: 25px; }
+        .countdown-box { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); padding: 10px 15px; border-radius: 8px; min-width: 70px; }
+        .countdown-box span { display: block; font-size: 1.5rem; font-weight: bold; }
+        .countdown-box label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Mempelai */
+        .mempelai { padding: 80px 20px; max-width: 800px; margin: 0 auto; }
+        .mempelai h2, .section-title { font-family: 'Cinzel', serif; font-size: 2rem; color: #bc9642; margin-bottom: 20px; }
+        .mempelai-flex { display: flex; flex-direction: column; gap: 40px; margin-top: 50px; }
+        @media(min-width: 768px) { .mempelai-flex { flex-direction: row; justify-content: space-around; align-items: center; } }
+        .profil-mempelai h3 { font-family: 'Sacramento', cursive; font-size: 3rem; margin: 10px 0; }
+        .ampersand { font-family: 'Sacramento', cursive; font-size: 4rem; color: #bc9642; }
+
+        /* Galeri Foto Geser (Slider) */
+        .galeri { padding: 80px 20px; background: #fff; }
+        .slider-container { position: relative; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; height: 400px; object-fit: cover; display: block; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px; cursor: pointer; border-radius: 50%; font-size: 1.2rem; }
+        .prev { left: 10px; } .next { right: 10px; }
+
+        /* RSVP & Ucapan */
+        .rsvp { padding: 80px 20px; background-color: #f4f1ea; }
+        .rsvp-form { max-width: 500px; margin: 30px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        
+        /* Kotak Komentar / Ucapan */
+        .ucapan-box { max-width: 500px; margin: 20px auto; max-height: 250px; overflow-y: auto; background: #fff; border-radius: 15px; padding: 15px; text-align: left; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); }
+        .ucapan-item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .ucapan-item strong { color: #bc9642; font-size: 0.95rem; }
+        .ucapan-item p { font-size: 0.9rem; color: #555; margin-top: 3px; }
+    </style>
+</head>
+<body>
+
+    <button class="music-control" id="musicBtn" onclick="toggleMusic()">
+        <i class="fas fa-music animate-music"></i>
+    </button>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <section class="hero">
+        <h3>The Wedding of</h3>
+        <h1>Hamzah & Anissa</h1>
+        
+        <div class="countdown-container">
+            <div class="countdown-box"><span id="days">00</span><label>Hari</label></div>
+            <div class="countdown-box"><span id="hours">00</span><label>Jam</label></div>
+            <div class="countdown-box"><span id="minutes">00</span><label>Menit</label></div>
+            <div class="countdown-box"><span id="seconds">00</span><label>Detik</label></div>
+        </div>
+        
+        <br><br>
+        <button class="btn" onclick="openInvitation()">Buka Undangan</button>
+    </section>
+
+    <section class="mempelai" id="konten">
+        <h2>Mempelai</h2>
+        <div class="mempelai-flex">
+            <div class="profil-mempelai">
+                <h3>Hamzah</h3>
+                <p><strong>Muhammad Hamzah, S.T.</strong><br>Putra dari Bapak Fulan & Ibu Fulanah</p>
+            </div>
+            <div class="ampersand">&</div>
+            <div class="profil-mempelai">
+                <h3>Anissa</h3>
+                <p><strong>Anissa Rahmawati, S.E.</strong><br>Putri dari Bapak Fulan & Ibu Fulanah</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="galeri">
+        <h2 class="section-title">Galeri Foto</h2>
+        <div class="slider-container">
+            <div class="slides" id="slides">
+                <div class="slide"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" alt="Foto 1"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600" alt="Foto 2"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600" alt="Foto 3"></div>
+            </div>
+            <button class="slider-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="slider-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="rsvp">
+        <h2 class="section-title">Konfirmasi Kehadiran</h2>
+        <p>Berikan ucapan selamat dan konfirmasi kehadiranmu di bawah ini:</p>
+        
+        <form class="rsvp-form" id="rsvpForm" onsubmit="kirimUcapan(event)">
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="nama" required placeholder="Contoh: Budi Santoso">
+            </div>
+            <div class="form-group">
+                <label>Konfirmasi Kehadiran</label>
+                <select id="kehadiran">
+                    <option value="Hadir">Ya, Saya Akan Hadir</option>
+                    <option value="Tidak Hadir">Maaf, Tidak Bisa Hadir</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Ucapan & Doa</label>
+                <textarea id="pesan" rows="4" required placeholder="Tulis ucapan serumu di sini..."></textarea>
+            </div>
+            <button type="submit" class="btn" style="width:100%;">Kirim Ucapan</button>
+        </form>
+
+        <div class="ucapan-box" id="boxUcapan">
+            <div class="ucapan-item">
+                <strong>Rian & Partner</strong> <span style="font-size:0.75rem; background:#e6fff0; color:#27ae60; padding:2px 6px; border-radius:10px;">Hadir</span>
+                <p>Selamat menempuh hidup baru Hamzah dan Anissa! Semoga sakinah mawaddah warahmah selalu.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. Fungsi Buka Undangan + Auto Play Musik ---
+        var music = document.getElementById("bgMusic");
+        var musicBtn = document.getElementById("musicBtn");
+
+        function openInvitation() {
+            document.getElementById('konten').scrollIntoView({ behavior: 'smooth' });
+            // Nyalakan musik saat tombol klik buka
+            music.play().catch(function(error) {
+                console.log("Browser memblokir autoplay, harus interaksi manual.");
+            });
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                music.pause();
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }
+
+        // --- 2. Fitur Hitung Mundur (Countdown) ---
+        var targetDate = new Date("Dec 31, 2026 00:00:00").getTime();
+        
+        setInterval(function() {
+            var now = new Date().getTime();
+            var diff = targetDate - now;
+
+            var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerHTML = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerHTML = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerHTML = s < 10 ? "0" + s : s;
+        }, 1000);
+
+        // --- 3. Fitur Galeri Slider ---
+        var currentSlide = 0;
+        function moveSlide(direction) {
+            var slides = document.getElementById("slides");
+            var totalSlides = document.querySelectorAll(".slide").length;
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            slides.style.transform = "translateX(" + (-currentSlide * 100) + "%)";
+        }
+
+        // --- 4. Simulasi RSVP & Kirim Ucapan Langsung Tampil ---
+        function kirimUcapan(e) {
+            e.preventDefault();
+            var nama = document.getElementById("nama").value;
+            var kehadiran = document.getElementById("kehadiran").value;
+            var pesan = document.getElementById("pesan").value;
+            var box = document.getElementById("boxUcapan");
+
+            var badgeColor = kehadiran === "Hadir" ? "#e6fff0; color:#27ae60;" : "#ffe6e6; color:#c0392b;";
+
+            var ucapanBaru = `
+                <div class="ucapan-item" style="animation: fadeIn 0.5s;">
+                    <strong>${nama}</strong> <span style="font-size:0.75rem; background:${badgeColor} padding:2px 6px; border-radius:10px;">${kehadiran}</span>
+                    <p>${pesan}</p>
+                </div>
+            `;
+            
+            box.innerHTML = ucapanBaru + box.innerHTML;
+            document.getElementById("rsvpForm").reset();
+        }
+    </script>
+</body>
+</html>
